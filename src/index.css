@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-bg: #2C2C2C;
+  --color-brand-bg-light: #3C3C3C;
+  --color-brand-orange: #FF8D12;
+  --color-brand-white: #F4F4F4;
+  --color-brand-muted: #D8D8D8;
+
+  --font-montserrat: "Montserrat", sans-serif;
+
+  --shadow-orange-glow: 0 0 25px -5px rgba(255, 141, 18, 0.5);
+
+  --shadow-button-glow:
+    0 0 4.36px rgba(255, 141, 18, 0.4),
+    0 0 8.72px rgba(255, 141, 18, 0.3),
+    0 0 30.54px rgba(255, 141, 18, 0.3),
+    0 0 61.07px rgba(255, 141, 18, 0.3),
+    0 0 104.69px rgba(255, 141, 18, 0.2),
+    0 0 183.21px rgba(255, 141, 18, 0.2);
+
+  --shadow-white-glow:
+    0 0 4.36px rgba(255, 255, 255, 0.4),
+    0 0 8.72px rgba(255, 255, 255, 0.3),
+    0 0 30.54px rgba(255, 255, 255, 0.3),
+    0 0 61.07px rgba(255, 255, 255, 0.3),
+    0 0 104.69px rgba(255, 255, 255, 0.2),
+    0 0 183.21px rgba(255, 255, 255, 0.2);
+
+  --shadow-team-card:
+    0 4.36px 4.36px rgba(0, 0, 0, 0.25),
+    0 8.72px 8.72px rgba(0, 0, 0, 0.2),
+    0 30.54px 30.54px rgba(0, 0, 0, 0.15),
+    0 61.07px 61.07px rgba(0, 0, 0, 0.1),
+    0 104.69px 104.69px rgba(0, 0, 0, 0.05),
+    0 183.21px 183.21px rgba(0, 0, 0, 0.03);
+}
+
+@layer base {
+  body {
+    @apply bg-brand-bg text-brand-white font-montserrat antialiased;
+  }
+
+  h1 {
+    @apply text-4xl font-extrabold uppercase tracking-tight;
+  }
+
+  h2 {
+    @apply text-3xl font-bold;
+  }
+
+  p {
+    @apply text-base leading-relaxed;
+  }
+}
+
+/* Кастомный градиент для секции Reference */
+.bg-reference-gradient {
+  background: linear-gradient(180deg, #2C2C2C 0%, #3C3C3C 20%, #3C3C3C 80%, #2C2C2C 100%);
+}
