@@ -3,7 +3,7 @@ import { Link } from 'react-scroll';
 import { Menu, X } from 'lucide-react';
 import { SHOW_LANG_SWITCH, languages } from '../constants/language';
 
-import Logo from '../assets/ITERI_logo.svg'
+import Logo from '../assets/ITERI_logoStroke.svg'
 
 const navLinks = [
     { name: 'O nás', to: 'about' },

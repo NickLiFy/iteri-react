@@ -54,6 +54,34 @@
   }
 }
 
+@layer utilities {
+  .bg-heating-card{
+    background: linear-gradient(180deg, #E97900 0%, #763D00 100%);
+  }
+
+  .bg-heating-icon {
+    background: linear-gradient(180deg, #FFAF59 0%, #FF8400 100%);
+  }
+
+  /* --- 2. INSTALATÉRSKÉ (Plumbing) --- */
+  .bg-plumbing-card {
+    background: linear-gradient(180deg, #0F7DB2 0%, #07374E 100%);
+  }
+
+  .bg-plumbing-icon {
+    background: linear-gradient(180deg, #3CC0FF 0%, #71CFFD 100%);
+  }
+
+  /* --- 3. ELEKTRIKÁŘSKÉ (Electrical) --- */
+  .bg-electrical-card {
+    background: linear-gradient(180deg, #20722D 0%, #0D2911 100%);
+  }
+
+  .bg-electrical-icon {
+    background: linear-gradient(180deg, #1FDB3D 0%, #64FF7D 100%);
+  }
+}
+
 /* Кастомный градиент для секции Reference */
 .bg-reference-gradient {
   background: linear-gradient(180deg, #2C2C2C 0%, #3C3C3C 20%, #3C3C3C 80%, #2C2C2C 100%);
