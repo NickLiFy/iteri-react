@@ -8,19 +8,21 @@ export const About = () => {
 
                     {/* 1. Текстовый контент */}
                     <div className="w-full lg:w-1/2 order-2 lg:order-1">
-                        <h1 className="font-black text-brand-white uppercase mb-10 tracking-tight">
-                            Kdo jsme?
-                        </h1>
 
-                        <div className="space-y-6 text-brand-muted text-base md:text-lg leading-relaxed max-w-2xl">
-                            <p>
+                        <div className="max-w-3xl mb-16 text-center md:text-left">
+                            <h2 className="text-3xl md:text-5xl font-black text-brand-white uppercase mb-6 tracking-tight">
+                                Kdo <span className="text-brand-orange">jsme?</span>
+                            </h2>
+                            <p className="text-brand-muted text-lg max-w-xl border-l-2 border-brand-orange/30 pl-6 mx-auto md:mx-0">
                                 Jsme <span className="text-brand-orange font-bold">Instalalatéři</span>,
                                 <span className="text-brand-orange font-bold"> Topenáři</span> a
                                 <span className="text-brand-orange font-bold"> Elektrikáři</span>, kteří se specializují na komplexní
                                 <span className="text-brand-orange font-bold"> Rekonstrukce</span> a technologické
                                 <span className="text-brand-orange font-bold"> Inovace</span>.
                             </p>
+                        </div>
 
+                        <div className="space-y-6 text-brand-muted text-base md:text-lg leading-relaxed max-w-2xl">
                             <p>
                                 V <span className="text-brand-white font-bold tracking-wider">ITERI Company</span> propojujeme klíčové obory pod jednu střechu.
                             </p>
@@ -34,7 +36,7 @@ export const About = () => {
                                 Každý projekt vnímáme jako závazek k maximální <span className="text-brand-white font-bold">kvalitě a spolehlivosti</span>.
                             </p>
 
-                            <p className="pt-4 border-l-2 border-brand-orange pl-6 italic">
+                            <p className="pt-4 border-l-2 border-brand-orange/30 pl-6 italic">
                                 Spolupráce s námi není jen o technické realizaci, ale o partnerství založeném na odborných znalostech, férovém jednání a společném cíli – vaší naprosté spokojenosti.
                             </p>
                         </div>

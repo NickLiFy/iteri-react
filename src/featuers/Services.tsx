@@ -9,20 +9,17 @@ export const Services = () => {
 
             <div className="container mx-auto px-6 relative z-10">
 
-                {/* Заголовок секции */}
-                <div className="max-w-3xl mb-16">
-                    <h2 className="font-black text-brand-white uppercase mb-10 tracking-tight">
-                        Naše specializace
+                <div className="max-w-3xl mb-16 text-center md:text-left">
+                    <h2 className="text-3xl md:text-5xl font-black text-brand-white uppercase mb-6 tracking-tight">
+                        Naše <span className="text-brand-orange">specializace</span>
                     </h2>
-                    <p className="text-brand-muted max-w-xl">
-                        Poskytujeme profesionální technické řešení pro váš domov i firmu.
-                        <br />
-                        Od první konzultace až po finální revizi.
+                    <p className="text-brand-muted text-lg max-w-xl border-l-2 border-brand-orange/30 pl-6 mx-auto md:mx-0">
+                        Poskytujeme profesionální technické řešení pro váš domov i firmu. Od první konzultace až po finální revizi.
                     </p>
                 </div>
 
                 {/* Сетка карточек */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-cols-3 gap-8">
                     {specializations.map((service) => (
                         <ServiceCard
                             key={service.id}

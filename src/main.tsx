@@ -7,6 +7,8 @@ import { Hero } from './featuers/Hero.tsx'
 import { About } from './featuers/About.tsx'
 import { References } from './featuers/References.tsx'
 import { Services } from './featuers/Services.tsx'
+import { Projects } from './featuers/Projects.tsx'
+import { Contact } from './featuers/Contact.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -16,5 +18,7 @@ createRoot(document.getElementById('root')!).render(
     <About />
     <References />
     <Services />
+    <Projects />
+    <Contact />
   </StrictMode>,
 )

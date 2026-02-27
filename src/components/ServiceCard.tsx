@@ -44,7 +44,7 @@ export const ServiceCard = ({ title, items, Icon, variant }: ServiceCardProps) =
             {/* Список услуг */}
             <ul className="space-y-4 w-full">
                 {items.map((item, index) => (
-                    <li key={index} className="text-brand-white font-bold flex items-center gap-3 text-sm md:text-base border-b border-white/10 pb-3 last:border-0 hover:translate-x-5 transition-transform duration-500 cursor-pointer">
+                    <li key={index} className="text-brand-white font-bold flex items-center gap-3 text-sm md:text-base border-b border-white/10 pb-3 last:border-0 hover:text-brand-orange hover:translate-x-5 transition-all duration-500 cursor-pointer">
                         <div className="w-2 h-2 bg-brand-white rounded-full flex-shrink-0" />
                         {item}
                     </li>

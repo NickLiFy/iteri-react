@@ -55,7 +55,7 @@
 }
 
 @layer utilities {
-  .bg-heating-card{
+  .bg-heating-card {
     background: linear-gradient(180deg, #E97900 0%, #763D00 100%);
   }
 
@@ -80,6 +80,12 @@
   .bg-electrical-icon {
     background: linear-gradient(180deg, #1FDB3D 0%, #64FF7D 100%);
   }
+}
+
+@utility vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
 }
 
 /* Кастомный градиент для секции Reference */

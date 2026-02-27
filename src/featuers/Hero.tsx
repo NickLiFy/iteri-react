@@ -54,7 +54,7 @@ export const Hero = () => {
                         Spolehlivý partnera v oblasti stavebnictví a technických prací.
                     </p>
 
-                    <Button className="text-lg px-10 py-4 rounded-[10px]">
+                    <Button className="md:col-span-2 bg-brand-orange hover:bg-orange-500 text-white font-black uppercase tracking-widest py-5 rounded-2xl shadow-button-glow transition-all duration-300 hover:scale-[1.02] cursor-pointer text-lg">
                         Vyžádat si nabídku
                     </Button>
                 </div>
