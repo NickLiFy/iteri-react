@@ -1,13 +1,17 @@
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Home } from './pages/Home';
+import { ServiceGallery } from './pages/ServiceGallery';
 
 function App() {
-
   return (
-    <>
-      <div>
-      </div>
-    </>
-  )
+    /* basename поможет роутеру понимать, что мы работаем внутри папки /iteri-react */
+    <Router basename="/iteri-react">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/sluzby/:category" element={<ServiceGallery />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

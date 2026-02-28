@@ -27,6 +27,7 @@ export const Services = () => {
                             items={service.items}
                             Icon={service.Icon}
                             variant={service.variant}
+                            categoryPath={service.categoryPath}
                         />
                     ))}
                 </div>
