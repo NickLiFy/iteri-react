@@ -4,7 +4,7 @@ import { ChevronDown, Menu, X } from 'lucide-react';
 import { SHOW_LANG_SWITCH, languages } from '../constants/language';
 import Logo from '../assets/ITERI_logoStroke.svg'
 import { Link as ScrollLink } from 'react-scroll';
-import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { servicesConfig } from '../constants/galleryData';
 
@@ -15,8 +15,6 @@ const navLinks = [
     { name: 'Kontakty', to: 'contact' },
 ];
 
-const logoGlow = 'linear-gradient(90deg, #0F7DB2 0%, #0F7DB2 20%, #FF8D12 20%, #FF8D12 40%, #20722D 40%, #20722D 60%, #CA2C28 60%, #CA2C28 80%, #FFD012 80%, #FFD012 100%)';
-
 export const Header = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -24,17 +22,6 @@ export const Header = () => {
     const isHome = location.pathname === '/';
 
     const currentConfig = category ? servicesConfig[category] : null;
-
-    const handleLogoClick = () => {
-        if (isHome) {
-            // если мы на главной — просто скроллим вверх
-            // react-scroll это сделает сам через Link, но если нужно вручную:
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-        } else {
-            // если мы в галлерее — возвращаемся на главную
-            navigate('/');
-        }
-    }
 
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
