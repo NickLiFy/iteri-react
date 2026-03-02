@@ -83,7 +83,7 @@ export const Header = () => {
                         {/* dropdown */}
                         {!isHome && currentConfig && (
                             <div className="relative group">
-                                <button className='flex items-center gap-2 text-brand-white font-black uppercase tracking-tighter text-lg hover:text-brand-orange transition-colors'>
+                                <button className='cursor-pointer flex items-center gap-2 text-brand-white font-black uppercase tracking-tighter text-lg hover:text-brand-orange transition-colors'>
                                     {currentConfig.title}
                                     <ChevronDown size={20} className='group-hover:rotate-180 transition-transform' />
                                 </button>
@@ -94,7 +94,7 @@ export const Header = () => {
                                         <button
                                             key={key}
                                             onClick={() => navigate(`/sluzby/${key}`)}
-                                            className={`w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-colors ${category === key ? 'bg-brand-orange text-brand-white' : 'text-brand-muted hover:bg-white/5 hover:text-brand-white'
+                                            className={`cursor-pointer w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-colors ${category === key ? 'bg-brand-orange text-brand-white' : 'text-brand-muted hover:bg-white/5 hover:text-brand-white'
                                                 }`}
                                         >
                                             {cfg.title}
@@ -183,9 +183,9 @@ export const Header = () => {
                         <X size={36} />
                     </button>
                 </div>
+
+
                 <nav className="flex flex-col gap-8">
-
-
                     {isHome ? (
                         <>
                             {navLinks.map((link) => (
@@ -202,35 +202,19 @@ export const Header = () => {
                                 </Link>
                             ))}
 
-                            <div className="flex flex-col gap-6"> {/* КОНТЕЙНЕР ДЛЯ ПОДКАТЕГОРИЙ */}
-                                <div className="text-brand-orange text-xs font-black uppercase tracking-widest mb-2">
-                                    Sekce:
-                                </div>
-                                {currentConfig?.subCategories.map((sub) => (
-                                    <ScrollLink
-                                        key={sub.id}
-                                        to={sub.id}
-                                        smooth
-                                        offset={-100}
-                                        onClick={() => setIsOpen(false)}
-                                        className="text-xl font-black uppercase text-brand-white hover:text-brand-orange active:text-brand-white transition-colors tracking-tight cursor-pointer leading-tight"
-                                    >
-                                        {sub.label}
-                                    </ScrollLink>
+                            <div className="mt-10 pt-10 border-t border-brand-white/10 flex gap-6">
+                                {languages.map((lang) => (
+                                    <button key={lang.code} className="text-sm font-black text-brand-muted uppercase hover:text-brand-orange transition-colors">
+                                        {lang.label}
+                                    </button>
                                 ))}
-
-                                {/* Кнопка возврата в мобилке тоже не помешает */}
-                                <button
-                                    onClick={() => { navigate('/'); setIsOpen(false); }}
-                                    className="mt-10 text-xs font-bold uppercase text-brand-muted border-b border-brand-muted/20 pb-2 w-fit"
-                                >
-                                    ← Zpět na úvod
-                                </button>
                             </div>
                         </>
                     ) : (
-                        <>
-                            <div className="text-brand-orange text-xs font-black uppercase tracking-widest mb-2">Sekce:</div>
+                        <div className="flex flex-col gap-6"> {/* КОНТЕЙНЕР ДЛЯ ПОДКАТЕГОРИЙ */}
+                            <div className="text-brand-orange text-xs font-black uppercase tracking-widest mb-2">
+                                Sekce:
+                            </div>
                             {currentConfig?.subCategories.map((sub) => (
                                 <ScrollLink
                                     key={sub.id}
@@ -238,12 +222,20 @@ export const Header = () => {
                                     smooth
                                     offset={-100}
                                     onClick={() => setIsOpen(false)}
-                                    className="text-2xl font-black uppercase text-brand-white hover:text-brand-orange active:text-brand-white transition-colors tracking-tight cursor-pointer"
+                                    className="text-xl font-black uppercase text-brand-white hover:text-brand-orange active:text-brand-white transition-colors tracking-tight cursor-pointer leading-tight"
                                 >
                                     {sub.label}
                                 </ScrollLink>
                             ))}
-                        </>
+
+                            {/* Кнопка возврата в мобилке тоже не помешает */}
+                            <button
+                                onClick={() => { navigate('/'); setIsOpen(false); }}
+                                className="cursor-pointer mt-10 text-xs font-bold uppercase text-brand-muted border-b border-brand-muted/20 pb-2 w-fit"
+                            >
+                                ← Zpět na úvod
+                            </button>
+                        </div>
                     )}
                 </nav>
             </aside>

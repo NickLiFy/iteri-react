@@ -37,6 +37,33 @@ export const ServiceGallery = () => {
         return <div className='text-brand-white p-20'>Kategorie nenalezena: {category}</div>;
     }
 
+    const allGallerySlides = config.subCategories.flatMap((sub) => {
+        // Важно: фильтруем картинки, которые лежат в папке этого sub.id
+        const sectionImages = allImages.filter(img => img.includes(`/${sub.id}/`));
+        return sectionImages.map(src => ({
+            src,
+            subId: sub.id,
+            subLabel: sub.label
+        }));
+    });
+
+    // В ServiceGallery.tsx
+    const handleLightboxClose = (lastIndex: number) => {
+        console.log("Closing at index:", lastIndex);
+
+        if (lastIndex >= 0 && allGallerySlides[lastIndex]) {
+            const targetId = allGallerySlides[lastIndex].subId;
+            const element = document.getElementById(targetId);
+
+            if (element) {
+                setTimeout(() => {
+                    // ИСПОЛЬЗУЙ СТРОКУ 'start', а не переменную
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 150);
+            }
+        }
+    };
+
     return (
         <div className="bg-brand-bg min-h-screen text-brand-white">
             <Header />
@@ -45,7 +72,7 @@ export const ServiceGallery = () => {
             <div className="pt-48 pb-20 container mx-auto px-6">
                 <button
                     onClick={() => navigate('/')}
-                    className='flex items-center gap-2 text-brand-muted hover:text-brand-orange transition-colors mb-12 group'
+                    className='cursor-pointer flex items-center gap-2 text-brand-muted hover:text-brand-orange transition-colors mb-12 group'
                 >
                     <ArrowLeft size={20} className='group-hover:-translate-x-1 transition-transform' />
                     <span className='font-bold uppercase text-xs tracking-[0.2em]'>
@@ -61,18 +88,19 @@ export const ServiceGallery = () => {
                 </header>
 
                 <div className="space-y-32">
-                    {config.subCategories.map((sub) => {
-                        const sectionImages = allImages.filter(img => img.includes(`/${sub.id}/`));
-
-                        return (
-                            <section key={sub.id} id={sub.id} className='scroll-mt-40'>
-                                <h2 className='text-2xl font-black uppercase mb-10 tracking-tight border-l-4 border-brand-orange pl-6'>
-                                    {sub.label}
-                                </h2>
-                                <PhotoGrid images={sectionImages.length > 0 ? sectionImages : allImages} />
-                            </section>
-                        )
-                    })}
+                    {config.subCategories.map((sub) => (
+                        <section key={sub.id} id={sub.id} className='scroll-mt-32 md:scroll-mt-40'>
+                            <h2 className='text-2xl font-black uppercase mb-10 tracking-tight border-l-4 border-brand-orange pl-6'>
+                                {sub.label}
+                            </h2>
+                            {/* ПЕРЕДАЕМ НОВЫЕ ПРОПСЫ */}
+                            <PhotoGrid
+                                allSlides={allGallerySlides}
+                                currentSectionId={sub.id}
+                                onClose={handleLightboxClose}
+                            />
+                        </section>
+                    ))}
                 </div>
             </div>
         </div>
