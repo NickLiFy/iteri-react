@@ -6,7 +6,11 @@ import Logo from '../assets/ITERI_logoStroke.svg'
 import { Link as ScrollLink } from 'react-scroll';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { servicesConfig } from '../constants/galleryData';
+import { servicesConfig, housesConfig } from '../constants/galleryData';
+
+import { MapPin } from 'lucide-react';
+
+const allGalleryConfigs = { ...servicesConfig, ...housesConfig };
 
 const navLinks = [
     { name: 'O nás', to: 'about' },
@@ -21,8 +25,7 @@ export const Header = () => {
     const { category } = useParams();
     const isHome = location.pathname === '/';
 
-    const currentConfig = category ? servicesConfig[category] : null;
-
+    const currentConfig = category ? allGalleryConfigs[category] : null;
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
 
@@ -77,16 +80,32 @@ export const Header = () => {
 
                                 {/* Dropdown list of all categories */}
                                 <div className="absolute top-full left-0 mt-2 w-64 bg-brand-bg/95 border border-white/10 rounded-2xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-2xl backdrop-blur-xl">
-                                    {Object.entries(servicesConfig).map(([key, cfg]) => (
-                                        <button
-                                            key={key}
-                                            onClick={() => navigate(`/sluzby/${key}`)}
-                                            className={`cursor-pointer w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-colors ${category === key ? 'bg-brand-orange text-brand-white' : 'text-brand-muted hover:bg-white/5 hover:text-brand-white'
-                                                }`}
-                                        >
-                                            {cfg.title}
-                                        </button>
-                                    ))}
+                                    {location.pathname.includes('/sluzby/') && (
+                                        Object.entries(servicesConfig).map(([key, cfg]) => (
+                                            <button
+                                                key={key}
+                                                onClick={() => navigate(`/sluzby/${key}`)}
+                                                className={`cursor-pointer w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-colors ${category === key ? 'bg-brand-orange text-brand-white' : 'text-brand-muted hover:bg-white/5 hover:text-brand-white'
+                                                    }`}
+                                            >
+                                                <span className="truncate">{cfg.title}</span>
+                                            </button>
+                                        ))
+                                    )}
+
+                                    {location.pathname.includes('/projekty/') && (
+                                        Object.entries(housesConfig).map(([key, cfg]) => (
+                                            <button
+                                                key={key}
+                                                onClick={() => navigate(`/projekty/${key}`)}
+                                                className={`cursor-pointer w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-colors ${category === key ? 'bg-brand-orange text-brand-white' : 'text-brand-muted hover:bg-white/5 hover:text-brand-white'
+                                                    }`}
+                                            >
+                                                <span className="truncate">{cfg.title}</span>
+                                            </button>
+                                        ))
+                                    )}
+
                                 </div>
                             </div>
                         )}
@@ -113,7 +132,7 @@ export const Header = () => {
                             </ul>
                         ) : (
 
-                            <ul className='flex gap-6'>
+                            <ul className='flex gap-6 items-center'>
                                 {currentConfig?.subCategories.map(sub => (
                                     <ScrollLink
                                         key={sub.id}
@@ -124,7 +143,12 @@ export const Header = () => {
                                         activeClass='text-brand-orange border-b-2 border-brand-orange'
                                         className='cursor-pointer text-[10px] font-black uppercase tracking-[0.2em] text-brand-muted hover:text-brand-white transition-all pb-1 border-transparent'
                                     >
-                                        {sub.label}
+                                        <div className="flex items-center gap-1.5">
+                                            {sub.location && <MapPin size={12} className='text-brand-orange' />}
+                                            <span className='text-[10px] font-black uppercase tracking-[0.2em] text-brand-muted group-hover:text-brand-white transition-all'>
+                                                {sub.label}
+                                            </span>
+                                        </div>
                                     </ScrollLink>
                                 ))}
                             </ul>
@@ -211,7 +235,22 @@ export const Header = () => {
                                     onClick={() => setIsOpen(false)}
                                     className="text-xl font-black uppercase text-brand-white hover:text-brand-orange active:text-brand-white transition-colors tracking-tight cursor-pointer leading-tight"
                                 >
-                                    {sub.label}
+                                    {sub.location && (
+                                        <div className="mt-1 p-2 rounded-lg bg-brand-orange/10 shrink-0">
+                                            <MapPin size={18} className='text-brand-orange' />
+                                        </div>
+                                    )}
+
+                                    <div className="flex flex-col">
+                                        <span className='text-xl font-black uppercase text-brand-white group-hover:text-brand-orange transition-colors tracking-tight leading-tight'>
+                                            {sub.label}
+                                        </span>
+                                        {sub.location && (
+                                            <span className='text-[11px] font-bold text-brand-muted uppercase tracking-[0.2em] mt-1'>
+                                                {sub.location}
+                                            </span>
+                                        )}
+                                    </div>
                                 </ScrollLink>
                             ))}
 

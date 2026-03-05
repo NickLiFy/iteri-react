@@ -4,47 +4,57 @@ import { ArrowLeft } from 'lucide-react';
 import { Header } from '../layout/Header';
 // import { GalleryNav } from '../components/gallery/GalleryNav'; // -- ошибка, нету кода внтури
 import { PhotoGrid } from '../components/gallery/PhotoGrid'; // -- ошибка, нету кода внутри
-import { servicesConfig } from '../constants/galleryData';
+import { servicesConfig, housesConfig } from '../constants/galleryData';
 import { getGalleryImages } from '../utils/galleryLoader';
 
 export const ServiceGallery = () => {
     const navigate = useNavigate();
     const { category } = useParams();
-    const { hash } = useLocation();
+    const location = useLocation(); // Достаем объект location полностью
+    const { hash } = location;
+
+    const state = location.state as { scrollTo?: string } | null;
 
     // config category
-    const config = servicesConfig[category || ''];
+    const allConfigs = { ...servicesConfig, ...housesConfig };
+    const config = allConfigs[category as string];
 
     //all images for cat
-    const allImages = getGalleryImages(category || '');
+    // const allImages = getGalleryImages(category || '');
 
     useEffect(() => {
-        if (hash) {
-            const id = hash.replace('#', '');
-            const element = document.getElementById(id);
+        // Проверяем хэш в URL или стейт навигации
+        const targetId = hash.replace('#', '') || state?.scrollTo;
+        if (targetId) {
+            const element = document.getElementById(targetId);
             if (element) {
                 setTimeout(() => {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }, 100)
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300); // Даем время картинкам начать грузиться
             }
         }
-        if (!hash) {
-            window.scrollTo(0, 0);
-        }
-    }, [category]);
+    }, [category, hash, state]);
+
 
     if (!config) {
         return <div className='text-brand-white p-20'>Kategorie nenalezena: {category}</div>;
     }
 
     const allGallerySlides = config.subCategories.flatMap((sub) => {
-        // Важно: фильтруем картинки, которые лежат в папке этого sub.id
-        const sectionImages = allImages.filter(img => img.includes(`/${sub.id}/`));
-        return sectionImages.map(src => ({
-            src,
-            subId: sub.id,
-            subLabel: sub.label
-        }));
+        const images = getGalleryImages(category as string);
+
+        return images
+            .filter(img => {
+                // ВАЖНО: Проверь, как выглядят пути к картинкам в консоли. 
+                // Если папка называется 'obyvaci-pokoj', а sub.id — 'obyvaci-pokoj', 
+                // то проверка должна проходить.
+                return img.includes(`/${sub.id}/`);
+            })
+            .map(img => ({
+                src: img,
+                subId: sub.id,
+                subLabel: sub.label
+            }));
     });
 
     // В ServiceGallery.tsx

@@ -5,22 +5,26 @@ import house4 from '../assets/projects/house4.jpg';
 
 export const projectsData = [
   {
-    id: 'dum1',
+    categoryId: 'rodinny-dum-1',
+    subId: 'dum-1',
     image: house1,
     title: 'Rekonstrukce vytápění v Praze' // Реконструкция отопления в Праге
   },
   {
-    id: 'dum2',
+    categoryId: 'rodinny-dum-2',
+    subId: 'dum-2',
     image: house2,
     title: 'Nové vodoinstalace, Brno' // Новые водоинсталляции, Брно
   },
   {
-    id: 'dum3',
+    categoryId: 'rodinny-dum-3',
+    subId: 'dum-3',
     image: house3,
     title: 'Kompletní elektroinstalace, Ostrava' // Полные электроинсталляции, Острава
   },
   {
-    id: 'dum4',
+    categoryId: 'rodinny-dum-4',
+    subId: 'dum-4',
     image: house4,
     title: 'Zahradní dům na klíč, Plzeň' // Садовый дом под ключ, Пльзень
   },

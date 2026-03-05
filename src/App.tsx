@@ -9,6 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sluzby/:category" element={<ServiceGallery />} />
+        <Route path='/projekty/:category' element={<ServiceGallery />} />
       </Routes>
     </Router>
   );
