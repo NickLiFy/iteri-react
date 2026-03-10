@@ -7,15 +7,15 @@ import { Projects } from '../features/Projects';
 import { Contact } from '../features/Contact';
 
 export const Home = () => {
-    return (
-        <>
-            <Header />
-            <Hero />
-            <About />
-            <References />
-            <Services />
-            <Projects />
-            <Contact />
-        </>
-    );
+ return (
+ <>
+ <Header />
+ <Hero />
+ <About />
+ <References />
+ <Services />
+ <Projects />
+ <Contact />
+ </>
+ );
 };
