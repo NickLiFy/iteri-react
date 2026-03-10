@@ -1,14 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-scroll';
-import { ChevronDown, Menu, X, Flame, Droplets, Zap, ArrowLeft } from 'lucide-react';
-import { SHOW_LANG_SWITCH, languages } from '../constants/language';
+import { ChevronDown, Menu, X, Flame, Droplets, Zap, ArrowLeft, MapPin, Scroll } from 'lucide-react';
+// import { SHOW_LANG_SWITCH, languages } from '../constants/language';
 import Logo from '../assets/ITERI_logoStroke.svg'
 import { Link as ScrollLink } from 'react-scroll';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { servicesConfig, housesConfig } from '../constants/galleryData';
-
-import { MapPin } from 'lucide-react';
 
 const allGalleryConfigs = { ...servicesConfig, ...housesConfig };
 
@@ -28,6 +24,7 @@ export const Header = () => {
     const currentConfig = category ? allGalleryConfigs[category] : null;
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     // const getCategoryIcon = (catId: string) => {
     //     if (catId.includes('topenar')) return { icon: <Flame size={18} />, bg: 'bg-heating-icon' };
@@ -50,7 +47,7 @@ export const Header = () => {
     return (
         <>
             {/* 1. ОСНОВНАЯ ПАНЕЛЬ НАВИГАЦИИ */}
-            <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-brand-bg/90 backdrop-blur-md py-4 shadow-lg' : 'bg-transparent py-6'
+            <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-brand-bg/90 backdrop-blur-md py-4 shadow-lg border-b border-brand-white/10' : 'bg-transparent py-6 border-b border-transparent'
                 }`}>
                 <div className="cursor-pointer container mx-auto px-6 flex justify-between items-center gap-4">
 
@@ -69,49 +66,70 @@ export const Header = () => {
                         </h2>
                     </div> */}
 
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-6 relative">
                         {isHome && (
-                            <div onClick={() => navigate('/')} className="cursor-pointer shrink-0 min-w-0 flex-1">
+                            <RouterLink
+                                to="/"
+                                className="cursor-pointer shrink-0 min-w-0 flex-1">
                                 <img src={Logo} alt="Logo" className='h-8 md:h-10' />
                                 <h2 className="text-sm sm:text-base font-bold text-brand-white mt-1">
                                     COMPANY s.r.o.
                                 </h2>
-                            </div>
+                            </RouterLink>
+                        )}
+
+                        {!isHome && (
+                            <RouterLink
+                                to="/"
+                                className='absolute top-0 cursor-pointer flex items-center gap-2 text-brand-muted hover:text-brand-orange transition-colors mb-12 group z-[110]'
+                            >
+                                <ArrowLeft size={20} className='group-hover:-translate-x-1 transition-transform' />
+                                <span className='font-bold uppercase text-xs md:text-xs'>
+                                    Zpět na hlavní stránku
+                                </span>
+                            </RouterLink>
                         )}
 
                         {/* dropdown */}
                         {!isHome && currentConfig && (
-                            <div className="relative group py-7">
-                                <button className='cursor-pointer flex items-center gap-2 text-brand-white font-black uppercase text-lg hover:text-brand-orange transition-colors'>
+                            <div className="relative py-7"> {/* -group */}
+                                <button
+                                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                    onMouseEnter={() => setIsDropdownOpen(true)}
+                                    className='cursor-pointer flex items-center gap-2 text-brand-white font-black uppercase text-lg hover:text-brand-orange transition-colors'>
                                     {currentConfig.title}
-                                    <ChevronDown size={20} className='group-hover:rotate-180 transition-transform' />
+                                    <ChevronDown size={20} className={`transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                                 </button>
 
                                 {/* Dropdown list of all categories */}
-                                <div className="absolute top-full left-0 mt-2 w-64 bg-brand-bg/95 border border-brand-white/10 rounded-2xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-2xl backdrop-blur-xl">
+                                <div
+                                    onMouseLeave={() => setIsDropdownOpen(false)}
+                                    className={`absolute top-full left-0 mt-2 w-64 bg-brand-bg/95 border border-brand-white/10 rounded-2xl p-2 opacity-0 transition-all shadow-2xl backdrop-blur-xl flex flex-col gap-3 ${isDropdownOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
                                     {location.pathname.includes('/sluzby/') && (
                                         Object.entries(servicesConfig).map(([key, cfg]) => (
-                                            <button
+                                            <RouterLink
                                                 key={key}
-                                                onClick={() => navigate(`/sluzby/${key}`)}
-                                                className={`cursor-pointer w-full text-left px-5 py-3 rounded-xl text-sm font-bold transition-colors ${category === key ? 'bg-brand-orange text-brand-white' : 'text-brand-muted hover:bg-brand-white/5 hover:text-brand-white'
+                                                to={`/sluzby/${key}`}
+                                                onClick={() => setIsDropdownOpen(false)}
+                                                className={`cursor-pointer w-full text-left px-5 py-3 rounded-xl text-sm åfont-bold transition-colors ${category === key ? 'bg-brand-orange text-brand-white' : 'text-brand-muted hover:bg-brand-white/5 hover:text-brand-white'
                                                     }`}
                                             >
                                                 <span className="truncate">{cfg.title}</span>
-                                            </button>
+                                            </RouterLink>
                                         ))
                                     )}
 
                                     {location.pathname.includes('/projekty/') && (
                                         Object.entries(housesConfig).map(([key, cfg]) => (
-                                            <button
+                                            <RouterLink
                                                 key={key}
-                                                onClick={() => navigate(`/projekty/${key}`)}
+                                                to={`/projekty/${key}`}
+                                                onClick={() => setIsDropdownOpen(false)}
                                                 className={`cursor-pointer w-full text-left px-5 py-3 rounded-xl text-sm font-bold transition-colors ${category === key ? 'bg-brand-orange text-brand-white' : 'text-brand-muted hover:bg-brand-white/5 hover:text-brand-white'
                                                     }`}
                                             >
                                                 <span className="truncate">{cfg.title}</span>
-                                            </button>
+                                            </RouterLink>
                                         ))
                                     )}
 
@@ -127,7 +145,7 @@ export const Header = () => {
                             <ul className="flex gap-x-6 xl:gap-x-8">
                                 {navLinks.map((link) => (
                                     <li key={link.to}>
-                                        <Link
+                                        <ScrollLink
                                             to={link.to}
                                             smooth={true}
                                             duration={600}
@@ -135,7 +153,7 @@ export const Header = () => {
                                             className="text-brand-white hover:text-brand-orange cursor-pointer font-semibold transition-colors uppercase text-xs xl:text-sm whitespace-nowrap"
                                         >
                                             {link.name}
-                                        </Link>
+                                        </ScrollLink>
                                     </li>
                                 ))}
                             </ul>
@@ -165,7 +183,7 @@ export const Header = () => {
 
 
 
-                        {SHOW_LANG_SWITCH && isHome && (
+                        {/* {SHOW_LANG_SWITCH && isHome && (
                             <div className="flex gap-3 border-l border-brand-muted/30 pl-6 shrink-0">
                                 {languages.map((lang) => (
                                     <button key={lang.code} className="text-[10px] font-bold text-brand-muted hover:text-brand-orange transition-colors cursor-pointer">
@@ -173,7 +191,7 @@ export const Header = () => {
                                     </button>
                                 ))}
                             </div>
-                        )}
+                        )} */}
                     </nav>
 
                     {/* Кнопка Бургера */}
@@ -209,7 +227,7 @@ export const Header = () => {
                     {isHome ? (
                         <>
                             {navLinks.map((link) => (
-                                <Link
+                                <ScrollLink
                                     key={link.to}
                                     to={link.to}
                                     smooth={true}
@@ -219,16 +237,16 @@ export const Header = () => {
                                     className="text-2xl font-black uppercase text-brand-white hover:text-brand-orange active:text-brand-white transition-colors cursor-pointer"
                                 >
                                     {link.name}
-                                </Link>
+                                </ScrollLink>
                             ))}
 
-                            <div className="mt-10 pt-10 border-t border-brand-white/10 flex gap-6">
+                            {/* <div className="mt-10 pt-10 border-t border-brand-white/10 flex gap-6">
                                 {languages.map((lang) => (
                                     <button key={lang.code} className="text-sm font-black text-brand-muted uppercase hover:text-brand-orange transition-colors cursor-pointer">
                                         {lang.label}
                                     </button>
                                 ))}
-                            </div>
+                            </div> */}
                         </>
                     ) : (
                         <div className="flex flex-col gap-6"> {/* КОНТЕЙНЕР ДЛЯ ПОДКАТЕГОРИЙ */}
@@ -265,15 +283,16 @@ export const Header = () => {
 
                             {/* Кнопка возврата в мобилке тоже не помешает */}
                             <div className="mt-10 pt-10 border-t border-brand-white/10 flex gap-6">
-                                <button
-                                    onClick={() => { navigate('/'); setIsOpen(false); }}
+                                <RouterLink
+                                    to="/"
+                                    onClick={() => { setIsOpen(false); }}
                                     className="cursor-pointer flex items-center gap-2 text-brand-muted hover:text-brand-orange transition-colors mb-12 group"
                                 >
                                     <ArrowLeft size={20} className='group-hover:-translate-x-1 transition-transform' />
                                     <span className='font-bold uppercase text-sm text-nowrap'>
                                         Zpět na úvod
                                     </span>
-                                </button>
+                                </RouterLink>
                             </div>
 
                         </div>

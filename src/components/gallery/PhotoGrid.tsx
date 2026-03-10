@@ -19,7 +19,7 @@ export const PhotoGrid = ({ allSlides, currentSectionId, onClose }: PhotoGridPro
 
     if (sectionImages.length === 0) {
         return (
-            <div className="py-16 border-2 border-dashed border-brand-white/10 rounded-[50px] text-center text-brand-muted uppercase text-xs font-bold">
+            <div className="px-3 md:px-0 py-8 md:py-16 border-2 border-dashed border-brand-white/10 rounded-[50px] text-center text-brand-muted uppercase text-xs font-bold">
                 V této sekci zatím nejsou žádné fotografie.
             </div>
         )
